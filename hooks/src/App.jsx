@@ -67,41 +67,65 @@
 //   );
 // }
 
-import { useState, useRef } from 'react';
+// USERREF EXAMPLE2 
 
-export default function Stopwatch() {
-  const [startTime, setStartTime] = useState(null);
-  const [now, setNow] = useState(null);
-  const intervalRef = useRef(null);
+// import { useState, useRef } from 'react';
 
-  function handleStart() {
-    setStartTime(Date.now());
-    setNow(Date.now());
+// export default function Stopwatch() {
+//   const [startTime, setStartTime] = useState(null);
+//   const [now, setNow] = useState(null);
+//   const intervalRef = useRef(null);
 
-    clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setNow(Date.now());
-    }, 10);
-  }
+//   function handleStart() {
+//     setStartTime(Date.now());
+//     setNow(Date.now());
 
-  function handleStop() {
-    clearInterval(intervalRef.current);
-  }
+//     clearInterval(intervalRef.current);
+//     intervalRef.current = setInterval(() => {
+//       setNow(Date.now());
+//     }, 10);
+//   }
 
-  let secondsPassed = 0;
-  if (startTime != null && now != null) {
-    secondsPassed = (now - startTime) / 1000;
-  }
+//   function handleStop() {
+//     clearInterval(intervalRef.current);
+//   }
 
-  return (
-    <>
-      <h1>Time passed: {secondsPassed.toFixed(3)}</h1>
-      <button onClick={handleStart}>
-        Start
-      </button>
-      <button onClick={handleStop}>
-        Stop
-      </button>
-    </>
-  );
+//   let secondsPassed = 0;
+//   if (startTime != null && now != null) {
+//     secondsPassed = (now - startTime) / 1000;
+//   }
+
+//   return (
+//     <>
+//       <h1>Time passed: {secondsPassed.toFixed(3)}</h1>
+//       <button onClick={handleStart}>
+//         Start
+//       </button>
+//       <button onClick={handleStop}>
+//         Stop
+//       </button>
+//     </>
+//   );
+// }
+
+
+// useEffect
+
+import { useState, useEffect } from 'react';
+import { createRoot } from 'react-dom/client';
+
+function Timer() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCount((count) => count + 1);
+    }, 1000);
+  }, []); // <- add empty brackets here
+
+  return <h1>I've rendered {count} times!</h1>;
 }
+
+createRoot(document.getElementById('root')).render(
+  <Timer />
+);
